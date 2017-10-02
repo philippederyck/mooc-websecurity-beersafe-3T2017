@@ -109,6 +109,41 @@ public class UserDAO {
 		return result;
 	}
 	
+	public void updatePassword(User user, String password) throws SQLException {
+		String query = "UPDATE " + TABLE + " SET password = ? WHERE id = ?";
+		Connection conn = null;
+		PreparedStatement statement = null;
+		try {
+			Logger.debug("DATABASE - " + query);
+			
+			conn = DB.getConnection();
+			statement = conn.prepareStatement(query);
+			statement.setString(1, password);
+			statement.setLong(2, user.getId());
+			statement.executeUpdate();
+			
+			// Update succeeded
+			
+			statement.close();
+			statement = null;
+			conn.close();
+			conn = null;
+		}
+		catch(Exception e) {
+			throw new SQLException(e); 
+		}
+		finally {
+			if(statement != null) {
+				statement.close();
+				statement = null;
+			}
+			if(conn != null) {
+				conn.close();
+				conn = null;
+			}
+		}
+	}
+	
 	protected User processItem(ResultSet rs) throws SQLException {
 		return new User(rs.getLong("id"), rs.getString("email"), rs.getString("password"), rs.getString("name"));
 	}
