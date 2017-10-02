@@ -1,6 +1,7 @@
 package eu.beersafe.mooc.data.access;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,16 +23,17 @@ public class BeerDAO {
 	public List<Beer> findAllByName(String filter) throws SQLException {
 		List<Beer> results = new ArrayList<Beer>();
 		
-		String query = "SELECT * FROM " + TABLE + " WHERE name LIKE '%" + filter + "%'";
+		String query = "SELECT * FROM " + TABLE + " WHERE name LIKE ?";
 		Connection conn = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ResultSet rs = null;
 		try {
 			Logger.debug("DATABASE - " + query);
 			
 			conn = DB.getConnection();
-			statement = conn.createStatement();
-			rs = statement.executeQuery(query);
+			statement = conn.prepareStatement(query);
+			statement.setString(1, "%" + filter + "%");
+			rs = statement.executeQuery();
 
 			while(rs.next()) {
 				results.add(processItem(rs));

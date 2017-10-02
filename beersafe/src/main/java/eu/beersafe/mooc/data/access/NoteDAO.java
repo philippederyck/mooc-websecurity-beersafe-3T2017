@@ -157,15 +157,19 @@ public class NoteDAO {
 	public boolean updateNote(Note note) throws SQLException {
 		boolean result = false;
 		
-		String query = "UPDATE " + TABLE + " SET title = \"" + note.getTitle() + "\", content = \"" + note.getContent() + "\", public = " + (note.isPublicNote() ? 1 : 0) + " WHERE id = " + note.getId();
+		String query = "UPDATE " + TABLE + " SET title = ?, content = ?, public = ? WHERE id = ?";
 		Connection conn = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		try {
 			Logger.debug("DATABASE - " + query);
 			
 			conn = DB.getConnection();
-			statement = conn.createStatement();
-			statement.executeUpdate(query);
+			statement = conn.prepareStatement(query);
+			statement.setString(1, note.getTitle());
+			statement.setString(2, note.getContent());
+			statement.setBoolean(3, note.isPublicNote());
+			statement.setLong(4, note.getId());
+			statement.executeUpdate();
 			
 			result = true;
 
@@ -193,15 +197,21 @@ public class NoteDAO {
 	public boolean createNote(Note note) throws SQLException {
 		boolean result = false;
 		
-		String query = "INSERT INTO " + TABLE + " (title, content, created, public, beerid, userid) VALUES (\"" + note.getTitle() + "\", \"" + note.getContent() + "\", \"" + note.getCreated() + "\", \"" + (note.isPublicNote() ? 1 : 0) + "\", " + note.getBeerid() + ", " + note.getUserid() + ")";
+		String query = "INSERT INTO " + TABLE + " (title, content, created, public, beerid, userid) VALUES (?,?,?,?,?,?)";
 		Connection conn = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		try {
 			Logger.debug("DATABASE - " + query);
 			
 			conn = DB.getConnection();
-			statement = conn.createStatement();
-			statement.executeUpdate(query);
+			statement = conn.prepareStatement(query);
+			statement.setString(1, note.getTitle());
+			statement.setString(2, note.getContent());
+			statement.setTimestamp(3,  note.getCreated());
+			statement.setBoolean(4, note.isPublicNote());
+			statement.setLong(5, note.getBeerid());
+			statement.setLong(6, note.getUserid());
+			statement.executeUpdate();
 			
 			result = true;
 

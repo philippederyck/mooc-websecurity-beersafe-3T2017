@@ -1,6 +1,7 @@
 package eu.beersafe.mooc.data.access;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,16 +19,17 @@ public class UserDAO {
 	public List<User> findAllByEmail(String email) throws SQLException {
 		List<User> results = new ArrayList<User>();
 		
-		String query = "SELECT * FROM " + TABLE + " WHERE email = '" + email + "'";
+		String query = "SELECT * FROM " + TABLE + " WHERE email = ?";
 		Connection conn = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ResultSet rs = null;
 		try {
 			Logger.debug("DATABASE - " + query);
 			
 			conn = DB.getConnection();
-			statement = conn.createStatement();
-			rs = statement.executeQuery(query);
+			statement = conn.prepareStatement(query);
+			statement.setString(1, email);
+			rs = statement.executeQuery();
 
 			while(rs.next()) {
 				results.add(processItem(rs));
