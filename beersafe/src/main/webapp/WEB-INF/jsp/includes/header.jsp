@@ -1,3 +1,4 @@
+<%@taglib prefix="e" uri="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
