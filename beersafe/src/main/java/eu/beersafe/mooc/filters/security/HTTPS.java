@@ -36,6 +36,7 @@ public class HTTPS extends ConfigurableManager implements HandlerInterceptor {
 					Logger.info("HTTPS - Redirecting HTTP request to HTTPS: " + url);
 					response.setStatus(301);
 					response.sendRedirect(url.replace("http", "https"));
+					return false;
 				}
 			}
 			else {
@@ -85,7 +86,7 @@ public class HTTPS extends ConfigurableManager implements HandlerInterceptor {
 			this.setRedirectHttp(Boolean.parseBoolean(line.replace("redirect-enabled: ", "").trim()));
 		}
 		else if(line.startsWith("hsts-policy: ")) {
-			this.setHstsPolicy(line.replace("directive: ", "").trim());
+			this.setHstsPolicy(line.replace("hsts-policy: ", "").trim());
 		}
 	}
 

@@ -16,7 +16,7 @@ public class Error implements ErrorController {
 	
 	@RequestMapping(PATH)
 	public ModelAndView handleError(HttpServletRequest request) {
-        return new ModelAndView("fatalerror");
+        return new ModelAndView("error", "message", "Internal Server Error");
 	}
 
 	@Override
