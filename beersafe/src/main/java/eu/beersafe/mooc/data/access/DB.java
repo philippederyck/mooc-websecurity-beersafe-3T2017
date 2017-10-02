@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class DB {
 	
 	public static Connection getConnection() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BeerSafe","root","");  
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/BeerSafe?allowMultiQueries=true","root","");  
 		return conn;
 	}
 

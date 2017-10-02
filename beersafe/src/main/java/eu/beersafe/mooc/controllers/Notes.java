@@ -75,7 +75,7 @@ public class Notes extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/UpdateNote", method = RequestMethod.POST)
-	public ModelAndView updateNote(@RequestParam("id") int id, @RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("publicNote") Optional<Boolean> publicNote, HttpServletRequest request) {
+	public ModelAndView updateNote(@RequestParam("id") int id, @RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("publicNote") Optional<String> publicNote, HttpServletRequest request) {
 		try {
 			Logger.info("POST /UpdateNote (id = " + id + ")");
 			
@@ -146,7 +146,7 @@ public class Notes extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/CreateNote", method = RequestMethod.POST)
-	public ModelAndView createNote(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("publicNote") Optional<Boolean> publicNote, @RequestParam("beerid") int beerid, HttpServletRequest request) {
+	public ModelAndView createNote(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("publicNote") Optional<String> publicNote, @RequestParam("beerid") int beerid, HttpServletRequest request) {
 		try {
 			Logger.info("POST /CreateNote (...)");
 			
