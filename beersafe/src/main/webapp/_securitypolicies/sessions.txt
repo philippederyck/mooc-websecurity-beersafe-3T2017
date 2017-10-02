@@ -1,0 +1,9 @@
+# Secure / HttpOnly cookie attributes (valid values: true, false)
+secure: false
+httponly: false
+
+# Domain attribute (valid values: none, the actual domain value)
+domain: none
+
+# SameSite cookie attribute (valid values: none, strict, lax)
+samesite: none

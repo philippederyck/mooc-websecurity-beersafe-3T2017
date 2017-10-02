@@ -1,0 +1,101 @@
+/* 
+	Color scheme: https://www.materialpalette.com/blue-grey/lime 
+	
+	.dark-primary-color    { background: #455A64; }
+	.default-primary-color { background: #607D8B; }
+	.light-primary-color   { background: #CFD8DC; }
+	.text-primary-color    { color: #FFFFFF; }
+	.accent-color          { background: #CDDC39; }
+	.primary-text-color    { color: #212121; }
+	.secondary-text-color  { color: #757575; }
+	.divider-color         { border-color: #BDBDBD; }
+*/
+
+
+/* Colors */
+
+nav {
+	background-color: #607D8B !important;
+}
+
+.nav-item {
+	color: #FFFFFF !important;
+}
+
+.nav-item.active a {
+	color: #CDDC39 !important;
+}
+
+.nav-item:hover {
+	color: #CFD8DC !important;
+}
+
+
+
+.btn-primary {
+	background-color: #CDDC39 !important;
+	border-color: #CBDB38 !important;
+	color: #757575 !important;
+}
+
+.btn-primary:hover {
+	color: #212121 !important;
+}
+
+.btn-outline-primary {
+	color: #CDDC39 !important;
+	border-color: #CDDC39 !important;
+}
+
+.btn-outline-primary:hover {
+	background-color: #CDDC39 !important;
+	color: #FFFFFF !important;
+	border-color: #CBDB38 !important;
+}
+
+.text-accent {
+	color: #CDDC39 !important;
+}
+
+/* Sticky footer */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+#maincontainer {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #607D8B !important;
+  color: #CFD8DC !important;
+}
+
+/* Text sizes */
+
+.btn-text-l {
+	font-size: 150% !important;
+}
+
+/* Images */
+
+.img-blur {
+	box-shadow: 0 0 25px #000000;
+	border-radius: 4px;
+}
+
+.beercard img { 
+	height: 350px !important;
+}
+
+.beernote img {
+	height: 125px !important
+}

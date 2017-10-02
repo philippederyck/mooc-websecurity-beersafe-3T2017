@@ -1,0 +1,9 @@
+# Enable filter (valid values: true, false)
+enabled: false
+
+# Set policy as report-only (valid values: true, false)
+report-only: false
+
+# List of directives (all directives will be joined as-is into a single policy, so don't forget your semicolons)
+directive: default-src 'self';
+directive: script-src 'self';
