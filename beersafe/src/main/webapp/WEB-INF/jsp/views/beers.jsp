@@ -18,7 +18,7 @@
 					<i class="fa fa-search"></i>
 				</div>
 				<input type="text" class="form-control" id="searchField" name="search" size="50" 
-					placeholder="Enter search term" value="${query}">
+					placeholder="Enter search term" value="${e:forHtmlAttribute(query)}">
 			</div>
 			<button type="submit" class="btn btn-primary">Search</button>
 		</form>

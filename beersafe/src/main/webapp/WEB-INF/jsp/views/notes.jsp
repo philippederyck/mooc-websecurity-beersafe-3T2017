@@ -20,8 +20,8 @@
 	            <c:forEach var="note" items="${notes}">
 		            <div class="row justify-content-center note">
 					    <div class="col-12">
-					        <h5>${note.title} <a href="/EditNote?id=${note.id}"><i class="fa fa-pencil text-accent ml-2"></i></a></h5>
-					        <p>${note.content}</p>
+					        <h5>${e:forHtml(note.title)} <a href="/EditNote?id=${note.id}"><i class="fa fa-pencil text-accent ml-2"></i></a></h5>
+					        <p>${e:forHtml(note.content)}</p>
 					        <p class="small"><i><fmt:formatDate value="${note.created}" pattern="yyyy-MM-dd HH:mm:ss" /> - ${note.getBeer().name}</i></p>
 					    </div>
 					</div>

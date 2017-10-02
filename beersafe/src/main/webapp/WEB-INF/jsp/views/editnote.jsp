@@ -24,15 +24,15 @@
 	    		
 	        <div class="form-group">
 	            <label>Title</label>
-	            <input type="text" class="form-control" size="40" name="title" value="${note.title}">
+	            <input type="text" class="form-control" size="40" name="title" value="${e:forHtmlAttribute(note.title)}">
 	        </div>
 	        <div class="form-group">
 	            <label>Tasting notes</label>
-	            <textarea class="form-control" rows="3" name="content">${note.content}</textarea>
+	            <textarea class="form-control" rows="3" name="content">${e:forHtml(note.content)}</textarea>
 	        </div>
 	        <div class="form-check">
 	            <label class="form-check-label">
-	                <input type="checkbox" class="form-check-input" name="publicNote" value="${note.publicNote}">
+	                <input type="checkbox" class="form-check-input" name="publicNote" value="${e:forHtmlAttribute(note.publicNote)}">
 	                Share this note with other users?
 	            </label>
 	        </div>
