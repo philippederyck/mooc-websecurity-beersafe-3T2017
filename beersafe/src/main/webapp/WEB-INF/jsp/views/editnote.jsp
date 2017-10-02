@@ -7,7 +7,7 @@
 
 <div class="container">
 	<div class="row justify-content-center mt-4">
-		<h2 class="col-12 text-center">Login</h2>
+		<h2 class="col-12 text-center">Update Tasting Note</h2>
 	</div>
 
 	<c:if test="${error.length() > 0}">
