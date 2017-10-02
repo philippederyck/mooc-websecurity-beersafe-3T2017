@@ -21,6 +21,7 @@
 	<div class="row justify-content-center mt-4 mb-2">
 	    <form method="POST" action="/UpdateNote">
 	    		<input type="hidden" name="id" value="${note.id}">
+	    		<input type="hidden" name="csrftoken" value="${csrftoken}">
 	    		
 	        <div class="form-group">
 	            <label>Title</label>

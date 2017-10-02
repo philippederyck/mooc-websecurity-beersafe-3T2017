@@ -20,6 +20,7 @@ import eu.beersafe.mooc.data.objects.Beer;
 import eu.beersafe.mooc.data.objects.Note;
 import eu.beersafe.mooc.filters.session.Session;
 import eu.beersafe.mooc.logger.Logger;
+import eu.beersafe.mooc.utils.SecureRandomString;
 
 @Controller
 public class Notes extends AbstractController {
@@ -56,6 +57,10 @@ public class Notes extends AbstractController {
 			
 			Session session = ((Session)request.getAttribute("session"));
 			if(session.isAuthenticated()) {
+				String token = SecureRandomString.generate(8);
+				session.setAttribute("csrftoken",token);
+				request.setAttribute("csrftoken", token);
+				
 				Note note = (new NoteDAO()).findOneById(id);
 		        return new ModelAndView("editnote", "note", note);
 			}
@@ -86,22 +91,49 @@ public class Notes extends AbstractController {
 				note.setContent(content);
 				note.setPublicNote(publicNote.isPresent() ? true : false);
 				
-				if(note.isValid()) {
-					if((new NoteDAO()).updateNote(note)) {
-						Logger.info("Tasting note updated successfully! Redirecting to the beer page.");
-						return new ModelAndView("redirect:/Beers?id=" + note.getBeerid());
+				//Validate the CSRF token
+				String receivedToken = request.getParameter("csrftoken");
+				Object validToken = session.getAttribute("csrftoken");
+				if(receivedToken != null && validToken != null && validToken.toString().equals(receivedToken.toString())) {		
+					if(note.isValid()) {
+						if((new NoteDAO()).updateNote(note)) {
+							Logger.info("Tasting note updated successfully! Redirecting to the beer page.");
+							return new ModelAndView("redirect:/Beers?id=" + note.getBeerid());
+						}
+						else {					
+							Logger.error("Update of the note failed in the database. Operation returned false");
+							
+							String token = SecureRandomString.generate(8);
+							session.setAttribute("csrftoken",token);
+							request.setAttribute("csrftoken", token);
+							
+							ModelAndView model = new ModelAndView("editnote", "note", note);
+							model.addObject("error", "Update of the note failed in the database for unknown reasons.");
+							return model;
+						}
 					}
-					else {					
-						Logger.error("Update of the note failed in the database. Operation returned false");
+					else {				
+						Logger.info("Provided data is not considered valid.");
+						
+						String token = SecureRandomString.generate(8);
+						session.setAttribute("csrftoken",token);
+						request.setAttribute("csrftoken", token);
+						
 						ModelAndView model = new ModelAndView("editnote", "note", note);
-						model.addObject("error", "Update of the note failed in the database for unknown reasons.");
+						model.addObject("error", "Invalid input. Title and content are mandatory fields.");
 						return model;
 					}
 				}
-				else {				
-					Logger.info("Provided data is not considered valid.");
+				else {
+					Logger.warn("CSRF token is missing or invalid.");
+					
+					String token = SecureRandomString.generate(8);
+					session.setAttribute("csrftoken",token);
+					request.setAttribute("csrftoken", token);
+					
+					
 					ModelAndView model = new ModelAndView("editnote", "note", note);
-					model.addObject("error", "Invalid input. Title and content are mandatory fields.");
+					model.addObject("error", "CSRF token is missing or invalid.");
 					return model;
 				}
 			}
@@ -127,6 +159,10 @@ public class Notes extends AbstractController {
 			
 			Session session = ((Session)request.getAttribute("session"));
 			if(session.isAuthenticated()) {
+				String token = SecureRandomString.generate(8);
+				session.setAttribute("csrftoken",token);
+				request.setAttribute("csrftoken", token);
+				
 				Beer beer = (new BeerDAO()).findOneById(beerid);
 		        return new ModelAndView("createnote", "beer", beer);
 			}
@@ -155,26 +191,56 @@ public class Notes extends AbstractController {
 				//Retrieve the beer to rebuild the page in case of an error
 				Beer beer = (new BeerDAO()).findOneById(beerid);
 				
+				//Build the note object to rebuild the page in case of an error
 				boolean publicNoteBool = (publicNote.isPresent() ? true : false);
-				Note note = new Note(-1, Timestamp.from(Instant.now()), title, content, publicNoteBool, session.getAuthenticatedUser().getId(), beerid);				
-				if(note.isValid()) {
-					if((new NoteDAO()).createNote(note)) {
-						Logger.info("New tasting note created successfully! Redirecting to the beer page.");
-						return new ModelAndView("redirect:/Beers?id=" + note.getBeerid());
+				Note note = new Note(-1, Timestamp.from(Instant.now()), title, content, publicNoteBool, session.getAuthenticatedUser().getId(), beerid);
+				
+				//Validate the CSRF token
+				String receivedToken = request.getParameter("csrftoken");
+				Object validToken = session.getAttribute("csrftoken");
+				if(receivedToken != null && validToken != null && validToken.toString().equals(receivedToken.toString())) {				
+					if(note.isValid()) {
+						if((new NoteDAO()).createNote(note)) {
+							Logger.info("New tasting note created successfully! Redirecting to the beer page.");
+							return new ModelAndView("redirect:/Beers?id=" + note.getBeerid());
+						}
+						else {
+							Logger.error("Creation of the note failed in the database. Operation returned false");
+							
+							String token = SecureRandomString.generate(8);
+							session.setAttribute("csrftoken",token);
+							request.setAttribute("csrftoken", token);
+							
+							ModelAndView model = new ModelAndView("createnote", "beer", beer);
+							model.addObject("note", note);
+							model.addObject("error", "Creation of the note failed in the database for unknown reasons.");
+							return model;
+						}
 					}
 					else {
-						Logger.error("Creation of the note failed in the database. Operation returned false");
+						Logger.info("Provided data is not considered valid.");
+						
+						String token = SecureRandomString.generate(8);
+						session.setAttribute("csrftoken",token);
+						request.setAttribute("csrftoken", token);
+						
 						ModelAndView model = new ModelAndView("createnote", "beer", beer);
 						model.addObject("note", note);
-						model.addObject("error", "Creation of the note failed in the database for unknown reasons.");
+						model.addObject("error", "Invalid input. Title and content are mandatory fields.");
 						return model;
 					}
 				}
 				else {
-					Logger.info("Provided data is not considered valid.");
+					Logger.warn("CSRF token is missing or invalid.");
+					
+					String token = SecureRandomString.generate(8);
+					session.setAttribute("csrftoken",token);
+					request.setAttribute("csrftoken", token);
+					
+					
 					ModelAndView model = new ModelAndView("createnote", "beer", beer);
 					model.addObject("note", note);
-					model.addObject("error", "Invalid input. Title and content are mandatory fields.");
+					model.addObject("error", "CSRF token is missing or invalid.");
 					return model;
 				}
 			}
