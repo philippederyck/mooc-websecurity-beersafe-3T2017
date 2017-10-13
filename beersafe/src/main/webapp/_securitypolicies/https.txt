@@ -1,5 +1,5 @@
 # Enable redirect from HTTP to HTTPS (valid values: true, false)
-redirect-enabled: false
+redirect-enabled: true
 
 # Enable HSTS policy (valid values: true, false)
 hsts-enabled: false
