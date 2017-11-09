@@ -5,6 +5,7 @@ It is built for the  Web Security Fundamentals course on EDX:
 
 https://courses.edx.org/courses/course-v1:KULeuvenX+WEBSECx+3T2017/
 
+The course offers a VirtualBox image with a pre-installed version of the training application and its tools. The instructions listed here are for installing the training applicaiton on your own machine.
 
 ## Installation
 
