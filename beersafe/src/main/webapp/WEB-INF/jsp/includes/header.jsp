@@ -7,13 +7,13 @@
 	    	<link rel="shortcut icon" href="img/beersafe.ico">
 	
 		<link rel="stylesheet" href="css/custom.css">
-		<link rel="stylesheet" href="https://cdn.beersafe.eu/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://cdn.beersafe.eu/css/bootstrap.min.css">		
+		<link rel="stylesheet" href="http://cdn.beersafe.eu/css/font-awesome.min.css">
+		<link rel="stylesheet" href="http://cdn.beersafe.eu/css/bootstrap.min.css">		
 	
-		<script src="https://cdn.beersafe.eu/js/jquery-3.2.1.min.js"></script>
-		<script src="https://cdn.beersafe.eu/js/popper.min.js"></script>
-		<script src="https://cdn.beersafe.eu/js/tether.min.js"></script>
-		<script src="https://cdn.beersafe.eu/js/bootstrap.min.js"></script>
+		<script src="http://cdn.beersafe.eu/js/jquery-3.2.1.min.js"></script>
+		<script src="http://cdn.beersafe.eu/js/popper.min.js"></script>
+		<script src="http://cdn.beersafe.eu/js/tether.min.js"></script>
+		<script src="http://cdn.beersafe.eu/js/bootstrap.min.js"></script>
 	
 		<title>${title}</title>
 	</head>
